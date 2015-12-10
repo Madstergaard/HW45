@@ -87,11 +87,11 @@ public class SuperArray{
 
     // ~~~~~~~~~~~~~~ PHASE II ~~~~~~~~~~~~~~
     //adds an item after the last item
-    public void add( int o) {
+    public void add( Comparable o) {
 	int newVal = o;
 	_data.expand();
-	_data[_lastPos +1] = newVal;
-	if (newVal > 0){
+	_data[_lastPos +1] = o;
+	if (o > 0){
 	    _lastPos++;
 	    _size++;
 	}
@@ -102,20 +102,15 @@ public class SuperArray{
     //shifts existing elements to the right
     public void add( int index, Comparable newVal ) {
 	if (index < _size){
-	
+	for (int i = _data.lastPos; i > index; i--){
+	    _data[i] = _data[i + 1];
+	}
+	_data[index] = newVal;
 	if (newVal > 0){
 	    _lastPos++;
 	    _size++;
 	}
-	Comparable[] foo = new Comparable[_data.length + 1];
-	for (int i = 0; i < index; i++){
-	    foo[i] = _data[i];
-	}
-	foo[index] = newVal;
-	for (int i = index; i < _data.length; i++){
-	    foo[i + 1] = _data[i];
-	}
-	_data = foo;
+       
 	}
     }
 
@@ -123,19 +118,18 @@ public class SuperArray{
     //removes the item at index
     //shifts elements left to fill in newly-empted slot
     public void remove( int index ) {
-	if (_data[index] > 0){
-	    _lastPos--;
-	    _size--;
+	if (index < _size){
+	
+	if (newVal > 0){
+	    _lastPos++;
+	    _size++;
 	}
-	Comparable[] foo = new Comparable[_data.length - 1];
-	for (int i = 0; i < index; i++){
-	    foo[i] = _data[i];
-	}
-	for (int i = index + 1; i < _data.length; i++){
-	    foo[i - 1] = _data[i];
+	foo[index] = newVal;
+	for (int i = _data.lastPos; i >= index; i--){
+	    _data[i] = _data[i - 1];
 	}
 	_data = foo;
-	
+	}
     }
 
 
