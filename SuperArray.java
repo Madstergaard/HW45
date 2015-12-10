@@ -1,29 +1,13 @@
-// Team D-O-M -- Maddie Ostergaard, David Merlinsky
+//  Maddie Ostergaard
 // APCS1 pd9
-// HW42 -- Array of Titanium
-// 2015-12-4
+// HW45 -- .
+// 2015-12-09
 
-
-/*****************************
- * SKELETON for
- * class SuperArray --  A wrapper class for an array. 
- * Maintains functionality:
- *  access value at index
- *  overwrite value at index
- *  report number of meaningful items
- * Adds functionality to std Java array:
- *  resizability
- *  ability to print meaningfully
- *  add item (at end)
- *  insert item
- *  remove item (while maintaining "left-justification")
- *****************************/
-
-public class SuperArray implements ListInt{
+public class SuperArray{
  
     //~~~~~INSTANCE VARS~~~~~
     //underlying container, or "core" of this data structure:
-    private int[] _data;
+    private Comparable[] _data;
 
     //position of last meaningful value
     private int _lastPos;
@@ -33,12 +17,31 @@ public class SuperArray implements ListInt{
 
 		
     //~~~~~METHODS~~~~~
-    //default constructor â€“ initializes 10-item array
+    //default constructor initializes 10-item array
     public SuperArray() 
     { 
-	_data = new int[10];
+	_data = new Comparable[10];
 	_lastPos = -1; //flag to indicate no lastpos yet
 	_size = 0;	
+    }
+
+    
+    public int linSearch(Comparable target){
+	for (int i = 0; i < _data.length; i++){
+	    if (_data[i] == target){
+		return i;
+	    }
+	}
+	return -1;
+    }
+
+    public boolean isSorted(){
+	for (int i = 0; i < _data.length; i++){
+	    if ((Double)_data[i] > (Double) _data[i+1]){
+		return false;
+	    }
+	}
+	return true;
     }
 
 		
@@ -74,7 +77,7 @@ public class SuperArray implements ListInt{
 		
     //mutator -- set value at index to newVal, 
     //           return old value at index
-    public int set( int index, int newVal ) 
+    public int set( int index, Comparable newVal ) 
     { 
  	int temp = _data[index];
 	_data[index] = newVal;
@@ -86,29 +89,25 @@ public class SuperArray implements ListInt{
     //adds an item after the last item
     public void add( int o) {
 	int newVal = o;
-	int[] new_data = new int[_data.length + 1];
-	for (int i = 0; i <= _lastPos; i ++){
-	    new_data[i] = _data[i];
-	}
-	new_data[_lastPos +1] = newVal;
+	_data.expand();
+	_data[_lastPos +1] = newVal;
 	if (newVal > 0){
 	    _lastPos++;
 	    _size++;
 	}
-	_data = new_data;
     }
 
 
     //inserts an item at index
     //shifts existing elements to the right
-    public void add( int index, int newVal ) {
+    public void add( int index, Comparable newVal ) {
 	if (index < _size){
 	
 	if (newVal > 0){
 	    _lastPos++;
 	    _size++;
 	}
-	int[] foo = new int[_data.length + 1];
+	Comparable[] foo = new Comparable[_data.length + 1];
 	for (int i = 0; i < index; i++){
 	    foo[i] = _data[i];
 	}
@@ -128,7 +127,7 @@ public class SuperArray implements ListInt{
 	    _lastPos--;
 	    _size--;
 	}
-	int[] foo = new int[_data.length - 1];
+	Comparable[] foo = new Comparable[_data.length - 1];
 	for (int i = 0; i < index; i++){
 	    foo[i] = _data[i];
 	}
@@ -215,14 +214,6 @@ public class SuperArray implements ListInt{
 	//*****INSERT ANY ADDITIONAL TEST CALLS HERE*****
 //	  System.out.println("Size = " + mayfield.size());
 
-	ListInt hunter = new SuperArray();
-	  hunter.add(5);
-	  hunter.add(4);
-	  hunter.add(3);
-	  hunter.add(2);
-	  hunter.add(1);
-	 
-	  System.out.println(hunter.get(0));
 	
 	}	
 	

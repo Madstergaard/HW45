@@ -69,12 +69,14 @@ public class Rational implements Comparable
         p /= g;
         q /= g;
     }
-    public int compareTo(Object o)
-    {
-        Rational other = (Rational) o;
-        if (doubleValue() == other.doubleValue()) return 0;
-        if (doubleValue() < other.doubleValue()) return -1;
-        return 1;
+    public int compareTo(Object o){
+	if (o == (Rational) o){
+	    Rational other = (Rational) o;
+	    if (doubleValue() == other.doubleValue()) return 0;
+	    if (doubleValue() < other.doubleValue()) return -1;
+	    return 1;
+	}
+	return -1;
     }
 
     public void multiply(Rational r)
